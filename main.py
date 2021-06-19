@@ -1,4 +1,4 @@
-from jasper import to_mel
+from jasper import Jasper
 
 
 def main():
