@@ -28,8 +28,9 @@ class Jasper(nn.Module):
             classifier = jasper()
         if augmentations is None:
             augmentations = to_mel()
-        self.augmentations = augmentations
+        self.augmentations = augmentations.cuda()
         self.classifier = classifier.module if isinstance(classifier, nn.DataParallel) else classifier
+        self.classifier = self.classifier.cuda()
 
     def forward(self, *inputs: [torch.Tensor]) -> [torch.Tensor]:
         augmented = self.augmentations(*inputs)
