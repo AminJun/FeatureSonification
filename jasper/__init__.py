@@ -9,13 +9,13 @@ __all__ = ['jasper', 'to_mel']
 
 def jasper() -> nn.Module:
     network = _Jasper()
-    checkpoint = torch.load(os.path.join('checkpoints', 'jasper', 'base.pt'), map_location="cpu")['state_dict']
+    checkpoint = torch.load(os.path.join('checkpoints', 'jasper.pt'), map_location="cpu")['state_dict']
     network.load_state_dict(checkpoint, strict=False)
     return network
 
 
 def to_mel() -> nn.Module:
     network = _Aug()
-    checkpoint = torch.load(os.path.join('checkpoints', 'jasper', 'jasper_aug.pt'), map_location="cpu")
+    checkpoint = torch.load(os.path.join('checkpoints', 'to_mel.pt'), map_location="cpu")
     network.load_state_dict(checkpoint, strict=False)
     return network
