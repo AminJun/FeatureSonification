@@ -101,5 +101,6 @@ class ModelWithHook:
         self.f = feature
 
     def __call__(self, wav: torch.tensor, size: torch.tensor) -> torch.tensor:
-        self.model(wav, size)
-        return self.hook()[self.l][0][self.f]
+        with torch.no_grad():
+            self.model(wav, size)
+            return self.hook()[self.l][0][self.f]
