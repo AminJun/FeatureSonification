@@ -1,0 +1,1 @@
+from models.hifi.model import get_hifi_gan
