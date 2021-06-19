@@ -88,7 +88,9 @@ class ActivationHooks(HookHolder):
         self._broadcast('reset')
 
     def __call__(self) -> []:
-        return self[0].activations
+        return_value = self[0].activations
+        self.reset()
+        return return_value
 
 
 class ModelWithHook:
