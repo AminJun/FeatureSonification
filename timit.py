@@ -66,10 +66,10 @@ class AbstractTimit(Dataset):
 
 
 class TimitWord(AbstractTimit):
-    def __init__(self, parent: Timit, time: int = 16000 - 1, subset: str = 'SI', debug: bool = False):
+    def __init__(self, parent: Timit, time: int = 7*8*320 - 1, subset: str = 'SI', debug: bool = False):
         super().__init__(parent, time, subset, debug, item_id=3)
 
 
 class TimitPhoneme(AbstractTimit):
-    def __init__(self, parent: Timit, time: int = 16000, subset: str = 'SI', debug: bool = False):
+    def __init__(self, parent: Timit, time: int = 7*8*320 - 1, subset: str = 'SI', debug: bool = False):
         super().__init__(parent, time, subset, debug, item_id=4)
