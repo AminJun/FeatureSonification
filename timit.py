@@ -24,10 +24,10 @@ def load_timit(file: str):
 
 def walk_files(root, suffix):
     root = os.path.expanduser(root)
-    for _, _, fn in os.walk(root):
+    for dir_path, _, fn in os.walk(root):
         for f in fn:
             if f.endswith(suffix):
-                f = os.path.join(root, f)
+                f = os.path.join(dir_path, f)
                 yield f
 
 
