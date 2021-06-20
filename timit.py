@@ -22,10 +22,19 @@ def load_timit(file: str):
     return data_path, wav, transcript, words, phonemes
 
 
+def walk_files(root, suffix):
+    root = os.path.expanduser(root)
+    for _, _, fn in os.walk(root):
+        for f in fn:
+            if f.endswith(suffix):
+                f = os.path.join(root, f)
+                yield f
+
+
 class Timit(Dataset):
     def __init__(self, root: str):
         self.root = root
-        self.walker = list(str(p.stem) for p in Path(self.root).glob('*/*/*/*/*' + '.WAV'))
+        self.walker = list(walk_files(root, suffix='.WAV'))
 
     def __getitem__(self, item) -> (str, torch.tensor, str, list, list):
         return load_timit(self.walker[item])
@@ -66,10 +75,10 @@ class AbstractTimit(Dataset):
 
 
 class TimitWord(AbstractTimit):
-    def __init__(self, parent: Timit, time: int = 7*8*320 - 1, subset: str = 'SI', debug: bool = False):
+    def __init__(self, parent: Timit, time: int = 7 * 8 * 320 - 1, subset: str = 'SI', debug: bool = False):
         super().__init__(parent, time, subset, debug, item_id=3)
 
 
 class TimitPhoneme(AbstractTimit):
-    def __init__(self, parent: Timit, time: int = 7*8*320 - 1, subset: str = 'SI', debug: bool = False):
+    def __init__(self, parent: Timit, time: int = 7 * 8 * 320 - 1, subset: str = 'SI', debug: bool = False):
         super().__init__(parent, time, subset, debug, item_id=4)
